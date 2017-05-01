@@ -1,5 +1,3 @@
-[![](https://dockerbuildbadges.quelltext.eu/status.svg?organization=bwsw&repository=webshell)](https://hub.docker.com/r/bwsw/webshell/builds/)
-
 # webshell
 
 It's a web ssh proxy. If deployed on certain server it can transform it to web ssh client. It is for remote ssh connections, not for the connection to the same server where it's deployed (see shellinabox https://code.google.com/archive/p/shellinabox/) if you want to have just web ssh server to the server.
