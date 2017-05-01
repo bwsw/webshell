@@ -52,9 +52,10 @@ if __name__ == "__main__":
 	allowed_networks = os.environ['ALLOWED_NETWORKS'] if 'ALLOWED_NETWORKS' in os.environ else '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7'
 	inactivity_interval = int(os.environ['INACTIVITY_INTERVAL']) if 'INACTIVITY_INTERVAL' in os.environ else 60
 
-	print(os.environ)
+	print("Welcome to a Webshell SSH proxy powered by Shellinabox (https://code.google.com/archive/p/shellinabox/)")
+	print("The code of the SSH proxy implementation is located at https://github.com/bwsw/webshell/")
 
-	if peer_info == "":
+	if peer_info == "" or peer_desc.query == "":
 		peer_ip_candidate = input("Enter host ip to connect (Default: %s): " % peer_ip)
 		peer_port_candidate = input("Enter port to connect (Default: %d): " % peer_port)
 		peer_login_candidate = input("Login: (Default: %s): " % peer_login)

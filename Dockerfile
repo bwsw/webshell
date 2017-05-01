@@ -2,7 +2,7 @@ FROM debian:jessie
 
 MAINTAINER Bitworks Software info@bitworks.software
 
-EXPOSE 8018
+EXPOSE 80
 
 ENV SSH_PORT 22
 ENV USERNAME root
