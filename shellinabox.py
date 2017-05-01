@@ -109,7 +109,6 @@ if __name__ == "__main__":
 
 	identity_file = ""
 	if length > 3 and is_vault_enabled:
-
 		try:
 			token = peer_parts[3]
 			key = "/".join(peer_parts[4:])
@@ -124,7 +123,7 @@ if __name__ == "__main__":
 			os.chmod(f.name, 0o400)
 			identity_file = f.name
 			f.close()
-		finally:
+		except:
 			pass
 
 	allowed_networks = list(map(lambda x: ipaddress.ip_network(x.strip()), allowed_networks.split(",")))
