@@ -1,4 +1,4 @@
-# webshell
+# BWSW/Webshell purpose and features
 
 It's a web ssh proxy. If deployed on certain server it can transform it to web ssh client. It is for remote ssh connections, not for the connection to the same server where it's deployed (see [Shellinabox](https://code.google.com/archive/p/shellinabox/)) if you want to have just web ssh server to the server.
 
