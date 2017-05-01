@@ -38,7 +38,7 @@ to use URL-based and default values
 
 ## Author
 
-[Bitworks Software, Ltd.](https://bitworks.software/)
+Ivan Kudryavtsev @ [Bitworks Software, Ltd.](https://bitworks.software/)
 
 ## License
 
