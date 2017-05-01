@@ -15,6 +15,31 @@ The code doesn't support DNS names for servers because It involves ambiguity in 
 
 # Usage
 
+The most basic usage involves to run docker container and specify allowed networks in CIDR format (use comma to separate them). By default gray networks are specified - 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7)
+
 ```bash
 docker run -d --name webshell -p 8018:80 -e ALLOWED_NETWORKS=0.0.0.0/0 bwsw/webshell
 ```
+
+Navigate to http://hostname.com:8018/ to specify server ip, port and login interactively or 
+- http://hostname.com:8018/?serverip
+- http://hostname.com:8018/?serverip/port
+- http://hostname.com:8018/?serverip/port/login
+
+to use URL-based and default values
+
+## Parameters
+
+1. SSH_PORT - default port to use (if not specified - 22)
+2. USERNAME - default login to use (if not specified - root)
+3. DEFAULT_IP - default ip to use (if not specified, both ipv4 and ipv6 are ok)
+4. ALLOWED_NETWORKS - comma-separated list of CIDRs (10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7, both ipv4 and ipv6 are ok)
+5. INACTIVITY_INTERVAL - amount of seconds of noIO between remote server and browser after which the monitor script must terminate the connection (default 60)
+
+## Author
+
+(Bitworks Software, Ltd.)[https://bitworks.software/]
+
+## License
+
+Published under Apache v2.0
