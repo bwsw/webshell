@@ -7,7 +7,7 @@ echo "export DEFAULT_IP=$DEFAULT_IP" >> /opt/shellinabox.run
 echo "export ALLOWED_NETWORKS=$ALLOWED_NETWORKS" >> /opt/shellinabox.run
 echo "export INACTIVITY_INTERVAL=$INACTIVITY_INTERVAL" >> /opt/shellinabox.run
 echo "export TERM=xterm" >> /opt/shellinabox.run
-echo "/opt/shellinabox.py \$1" >> /opt/shellinabox.run
+echo "exec /opt/shellinabox.py \$1" >> /opt/shellinabox.run
 
 chmod 755 /opt/shellinabox.run
 cat /opt/shellinabox.run
