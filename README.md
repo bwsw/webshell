@@ -32,14 +32,14 @@ to use URL-based and default values
 
 ## Parameters
 
-1. SSH_PORT - default port to use (if not specified - 22)
-2. USERNAME - default login to use (if not specified - root)
-3. DEFAULT_IP - default ip to use (if not specified, both ipv4 and ipv6 are ok)
-4. ALLOWED_NETWORKS - comma-separated list of CIDRs (10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7, both ipv4 and ipv6 are ok)
-5. INACTIVITY_INTERVAL - amount of seconds of noIO between remote server and browser after which the monitor script must terminate the connection (default 60)
-6. VAULT_ENABLED - specifies either HashiCorp Vault enabled or not
-7. VAULT_VALUE - specifies value field name for secret key where to get private ssh key
-8. VAULT_URL - specifies where Vault is deployed (e.g. http(s)://somewhere.com:8200/v1).
+1. **SSH_PORT** - default port to use (if not specified - 22)
+2. **USERNAME** - default login to use (if not specified - root)
+3. **DEFAULT_IP** - default ip to use (if not specified, both ipv4 and ipv6 are ok)
+4. **ALLOWED_NETWORKS** - comma-separated list of CIDRs (10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7, both ipv4 and ipv6 are ok)
+5. **INACTIVITY_INTERVAL** - amount of seconds of noIO between remote server and browser after which the monitor script must terminate the connection (default 60)
+6. **VAULT_ENABLED** - specifies either HashiCorp Vault enabled or not
+7. **VAULT_VALUE** - specifies value field name for secret key where to get private ssh key
+8. **VAULT_URL** - specifies where Vault is deployed (e.g. http(s)://somewhere.com:8200/v1).
 
 ## HashiCorp's Vault integration notes
 
@@ -51,7 +51,7 @@ base64 ~/.ssh/id_rsa
 
 Current implementation suggests that for the Vault calling part either guarantees enough security to show the token in URI or provides one time (limited) Vault token which doesn't fit for reuse.
 
-Also, keep in mind, that the code *creates* temporary file for SSH identity file and removes it after SSH command invocation, so keep the docker image with bwsw/webshell secure. The feature involves potential security vulnerability, so the code must be audited properly by security engineers.
+Also, keep in mind, that the code **creates** temporary file for SSH identity file and removes it after SSH command invocation, so keep the docker image with bwsw/webshell secure. The feature involves potential security vulnerability, so the code must be audited properly by security engineers.
 
 ## Author
 
