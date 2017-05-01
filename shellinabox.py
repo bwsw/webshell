@@ -96,6 +96,7 @@ if __name__ == "__main__":
 	for net in allowed_networks:
 		if ipaddress.ip_address(peer_ip) in net:
 			ipInNetworks = True
+			break
 
 	if not ipInNetworks:
 		print("IP %s does not relate to allowed networks." % (peer_ip))
