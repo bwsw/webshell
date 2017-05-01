@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
-import sys, os, subprocess, signal, re, ipaddress, time, subprocess
+import sys, os, subprocess, signal, re, ipaddress, time, subprocess, urllib.request, json, base64, tempfile
 from urllib.parse import urlparse
 
-def monitor_daemon(inactivity_interval = 0):
+def monitor_daemon(inactivity_interval, identity_file):
 	orig_pid = os.getpid()
 	try:
 		pid = os.fork()
@@ -25,6 +25,10 @@ def monitor_daemon(inactivity_interval = 0):
 		print("Fork #2 failed: %d (%s)" % (e.errno, e.strerror))
 		sys.exit(1)
 	
+	if identity_file != "":
+		time.sleep(1)
+		os.unlink(identity_file)
+
 	try:
 		while True:
 			proc = subprocess.Popen('timeout %d strace -e write=1,2 -e trace=write -p %d' % (inactivity_interval, orig_pid), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -46,18 +50,17 @@ if __name__ == "__main__":
 	peer_desc = urlparse(peer_info)
 	peer_parts = peer_desc.query.split('/')
 
-	
-
 	peer_port = int(os.environ['SSH_PORT']) if 'SSH_PORT' in os.environ else 22
 	peer_login = os.environ['USERNAME'] if 'USERNAME' in os.environ else 'root'
 	peer_ip = os.environ['DEFAULT_IP'] if 'DEFAULT_IP' in os.environ else '0.0.0.0'
 	allowed_networks = os.environ['ALLOWED_NETWORKS'] if 'ALLOWED_NETWORKS' in os.environ else '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7'
 	inactivity_interval = int(os.environ['INACTIVITY_INTERVAL']) if 'INACTIVITY_INTERVAL' in os.environ else 60
-
+	is_vault_enabled = True if 'VAULT_ENABLED' in os.environ and os.environ['VAULT_ENABLED'] == 'true' else False
+	vault_url = os.environ["VAULT_URL"] if is_vault_enabled else ""
+	vault_value = os.environ["VAULT_VALUE"] if is_vault_enabled else ""
 
 	print("Welcome to a Webshell SSH proxy powered by Shellinabox (https://code.google.com/archive/p/shellinabox/)")
 	print("The code of the SSH proxy implementation is located at https://github.com/bwsw/webshell/")
-
 
 	if peer_info == "" or peer_desc.query == "":
 		def sigalrm_handler(signum, frame):
@@ -104,6 +107,26 @@ if __name__ == "__main__":
         	if re.match("^[a-z0-9_-]{3,16}$", peer_login_candidate):
                 	peer_login = peer_login_candidate
 
+	identity_file = ""
+	if length > 3 and is_vault_enabled:
+
+		try:
+			token = peer_parts[3]
+			key = "/".join(peer_parts[4:])
+			if vault_url[-1] != "/":
+				key = "/" + key
+			req = urllib.request.Request(vault_url + key, None, {"X-Vault-Token": token})
+			resp = urllib.request.urlopen(req)
+			key_json = base64.b64decode(json.loads(resp.read().decode('utf-8'))['data'][vault_value]).decode('utf-8')
+			key_json.replace("\\n","\n")
+			f = tempfile.NamedTemporaryFile(delete=False)
+			f.write(bytes(key_json, 'UTF-8'))
+			os.chmod(f.name, 0o400)
+			identity_file = f.name
+			f.close()
+		finally:
+			pass
+
 	allowed_networks = list(map(lambda x: ipaddress.ip_network(x.strip()), allowed_networks.split(",")))
 
 	ipInNetworks = False
@@ -117,6 +140,8 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	print("SSH Connection to %s@%s#%i will be opened..." % (peer_login, peer_ip, peer_port))
-	monitor_daemon(inactivity_interval)
-
-	os.execv("/usr/bin/ssh", ["/usr/bin/ssh", "-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-p", str(peer_port), "%s@%s" % (peer_login, peer_ip)])
+	monitor_daemon(inactivity_interval, identity_file)
+	identity_args = []
+	if identity_file != "":
+		identity_args = ["-i", identity_file]
+	os.execv("/usr/bin/ssh", ["/usr/bin/ssh"] + identity_args + ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-p", str(peer_port), "%s@%s" % (peer_login, peer_ip)])

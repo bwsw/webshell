@@ -6,6 +6,9 @@ echo "export USERNAME=$USERNAME" >> /opt/shellinabox.run
 echo "export DEFAULT_IP=$DEFAULT_IP" >> /opt/shellinabox.run
 echo "export ALLOWED_NETWORKS=$ALLOWED_NETWORKS" >> /opt/shellinabox.run
 echo "export INACTIVITY_INTERVAL=$INACTIVITY_INTERVAL" >> /opt/shellinabox.run
+echo "export VAULT_ENABLED=$VAULT_ENABLED" >> /opt/shellinabox.run
+echo "export VAULT_URL=$VAULT_URL" >> /opt/shellinabox.run
+echo "export VAULT_VALUE=$VAULT_VALUE" >> /opt/shellinabox.run
 echo "export TERM=xterm" >> /opt/shellinabox.run
 echo "exec /opt/shellinabox.py \$1" >> /opt/shellinabox.run
 
