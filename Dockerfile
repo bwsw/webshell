@@ -18,4 +18,4 @@ COPY ./shellinabox.py ./shellinabox.init /opt/
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y -q python3 shellinabox strace ssh && useradd -ms /bin/bash webshell && chmod 755 /opt/shellinabox.py /opt/shellinabox.init && rm -Rf /var/cache/apt/* && rm -Rf /var/lib/apt/lists/*
 
-CMD ["/opt/shellinabox.init"]
+ENTRYPOINT ["/opt/shellinabox.init"]
