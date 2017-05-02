@@ -2,7 +2,7 @@
 
 It's a web ssh proxy. If deployed on certain server it can transform it to web ssh client. It is for remote ssh connections, not for the connection to the same server where it's deployed. See [Shellinabox](https://code.google.com/archive/p/shellinabox/) if you want to have just web ssh server on the same server where you want connect to.
 
-Docker container which includes Shellinabox and python wrapper script which enables remote connections to arbitrary servers. It's based on the original [Shellinabox](https://code.google.com/archive/p/shellinabox/) and the [idea](https://blog.bartlweb.net/2013/10/ssh-web-gateway-mit-dem-opensource-tool-shellinabox/) of ssh client invocation.
+It is distributed in the form of Docker container which includes Shellinabox and python wrapper script and enables remote connections to arbitrary servers. It's based on the original [Shellinabox](https://code.google.com/archive/p/shellinabox/) and the [idea](https://blog.bartlweb.net/2013/10/ssh-web-gateway-mit-dem-opensource-tool-shellinabox/) of ssh client invocation.
 
 The project includes next features (both IPv4 and IPv6 are OK):
 1. serverip/port/login of the host to connect in the URL
