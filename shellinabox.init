@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "#!/bin/bash" >> /opt/shellinabox.run
+echo "#!/bin/bash" > /opt/shellinabox.run
 echo "export SSH_PORT=$SSH_PORT" >> /opt/shellinabox.run
 echo "export USERNAME=$USERNAME" >> /opt/shellinabox.run
 echo "export DEFAULT_IP=$DEFAULT_IP" >> /opt/shellinabox.run
