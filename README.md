@@ -49,7 +49,7 @@ Private SSH keys which are stored in Vault must be Base64-encoded, e.g.
 base64 ~/.ssh/id_rsa
 ```
 
-Current implementation suggests that for the Vault calling part either guarantees enough security to show the token in URI or provides one time (limited) Vault token which doesn't fit for reuse.
+Current implementation requires that for the Vault calling part either guarantees safety to show the token in URI or provides one time (limited) Vault token which doesn't fit for reuse.
 
 Also, keep in mind, that the code **creates** temporary file for SSH identity file and removes it after SSH command invocation, so keep the docker container with bwsw/webshell secure. The feature involves potential security vulnerability, so the code must be audited properly by security engineers.
 
