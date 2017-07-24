@@ -19,7 +19,7 @@ The code doesn't support DNS names for servers because It involves ambiguity in 
 The most basic usage involves to run docker container and specify allowed networks in CIDR format (use comma to separate them). By default gray networks are specified - 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,fc00::/7)
 
 ```bash
-docker run -d --name webshell -p 8018:80 -e ALLOWED_NETWORKS=0.0.0.0/0 bwsw/webshell
+docker run -d --privileged --security-opt seccomp=unconfined --name webshell -p 8018:80 -e ALLOWED_NETWORKS=0.0.0.0/0 bwsw/webshell
 ```
 
 Navigate to http://hostname.com:8018/ to specify server ip, port and login interactively or 
