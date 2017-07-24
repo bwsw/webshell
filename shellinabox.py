@@ -143,5 +143,4 @@ if __name__ == "__main__":
 	identity_args = []
 	if identity_file != "":
 		identity_args = ["-i", identity_file]
-	print(["/usr/bin/ssh"] + identity_args + ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-p", str(peer_port), "%s@%s" % (peer_login, peer_ip)])	
 	os.execv("/usr/bin/ssh", ["/usr/bin/ssh"] + identity_args + ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null", "-p", str(peer_port), "%s@%s" % (peer_login, peer_ip)])
