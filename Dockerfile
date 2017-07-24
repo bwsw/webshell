@@ -1,5 +1,4 @@
-FROM debian:jessie
-
+FROM ubuntu:xenial
 MAINTAINER Bitworks Software info@bitworks.software
 
 EXPOSE 80
