@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu
 MAINTAINER Bitworks Software info@bitworks.software
 
 EXPOSE 80
